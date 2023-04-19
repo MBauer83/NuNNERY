@@ -23,8 +23,12 @@ class DefaultNeuralNetwork(NeuralNetwork[DefaultLayer]):
             next_layer_activations = next_layer.get_activations()
             current_layer_activations_flattened_shape = np.prod(current_layer_activations.shape)
             next_layer_activations_flattened_shape = np.prod(next_layer_activations.shape)
-            if current_layer_activations_flattened_shape != next_layer_activations_flattened_shape:
-                raise ValueError("Invalid neural network initialization - the flattened shape of the activations of layer " + str(i) + " is not equal to the flattened shape of the activations of layer " + str(i + 1) + ".")
+            # check that outgoing weights of current layer are of the correct shape
+            weights = current_layer.get_outgoing_weights().as_array()
+            if not weights.shape == (next_layer_activations_flattened_shape, current_layer_activations_flattened_shape):
+                raise ValueError(
+                    f"Invalid neural network initialization - outgoing weights of layer {i} are of shape {weights.shape}, but should be of shape {(current_layer_activations_flattened_shape, next_layer_activations_flattened_shape)}"
+                )
         self.__layers = layers
         self.__shape = tuple([layer.get_neuron_count() for layer in layers])
 
@@ -44,10 +48,11 @@ class DefaultNeuralNetwork(NeuralNetwork[DefaultLayer]):
             raise ValueError(
                 f"Input size ({input.shape[0]}) does not match layer size ({self.__shape[0]})"
             )
+        
         output = input
-
-        for i, layer in enumerate(self.__layers):
+        for layer in self.__layers:
             output = layer.forward(output)
+
         return output
     
     def compile(self) -> Callable[[np.ndarray[float]], np.ndarray[float]]:
@@ -61,14 +66,17 @@ class DefaultNeuralNetwork(NeuralNetwork[DefaultLayer]):
         # get vectorized activation functions for all layers except the first one
         activation_functions = [layer.get_activation_function().calculate for layer in self.__layers[1:]]
         # prepend identity function to the list of vectorized activation functions
-        activation_functions.insert(0, lambda x: x)
+        #activation_functions.insert(0, lambda x: x)
 
-        # get matrices of weights for all layers except the first one
-        matrices_of_weights = [layer.get_outgoing_weights().as_array() for layer in self.__layers[1:]]
+        # get matrices of weights for all layers except the last one.
+        # uses layer.get_outgoing_weights().as_array() to get the weights or None if layer.get_outgoing_weights() is None
+        matrices_of_weights = [layer.get_outgoing_weights().as_array() for layer in self.__layers[:-1]]
         
-        def feedforward(w: np.ndarray, f: Callable[[np.ndarray], np.ndarray], x: np.ndarray) -> np.ndarray:
-            matmul = np.matmul(w.T, x)
-            result = f(matmul)
+        
+        
+        def feedforward(w: np.ndarray, f: Callable[[np.ndarray], np.ndarray] | None, x: np.ndarray) -> np.ndarray:
+            matmul = np.matmul(w, x)
+            result = f(matmul) if f is not None else matmul
             return result
         def feed_through(x: np.ndarray) -> np.ndarray:
             zipped = zip(matrices_of_weights, activation_functions)

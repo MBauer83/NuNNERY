@@ -25,12 +25,12 @@ class TestNeuralNetworkBehavior(unittest.TestCase):
         seq = lambda n: np.array([(i+1)*1.5 for i in range(n)])
 
         weights_initializer = lambda shape: DefaultWeights.generate(shape, lambda s: seq(s[0]*s[1]).reshape(s))
-        self.network = DefaultNeuralNetwork.generate((2, 2, 2), [IdentityActivationFn, IdentityActivationFn], weights_initializer)
+        self.network = DefaultNeuralNetwork.generate((2, 3, 2), [IdentityActivationFn, IdentityActivationFn], weights_initializer)
     
     def test_forward(self):
         input = np.array([1, 2])
         output = self.network.forward(input)
-        np.testing.assert_array_equal(output, np.array([60.75, 132.75]))
+        np.testing.assert_array_equal(output, np.array([175.5 , 398.25]))
 
     def test_get_output_activations(self):
         input = np.array([1, 2])
@@ -38,7 +38,15 @@ class TestNeuralNetworkBehavior(unittest.TestCase):
         np.testing.assert_array_equal(output, self.network.get_output_activations())
     
     def test_shape(self):
-        self.assertEqual(self.network.shape(), (2, 2, 2))
+        self.assertEqual(self.network.shape(), (2, 3, 2))
+
+    def test_compile(self):
+        network = self.network
+        compiled = network.compile()
+        input = np.array([1, 2])
+        forward_output = network.forward(input)
+        compiled_output = compiled(input)
+        np.testing.assert_array_equal(forward_output, compiled_output)
 
 
 
