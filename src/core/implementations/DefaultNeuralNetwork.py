@@ -34,7 +34,7 @@ class DefaultNeuralNetwork(NeuralNetwork[DefaultLayer]):
         return self.__layers[index]
     
     def shape(self) -> tuple[int, ...]:
-        return super().shape()
+        return self.__shape
     
     def get_output_activations(self) -> np.ndarray[float]:
         return self.__layers[-1].get_activations()
@@ -45,7 +45,8 @@ class DefaultNeuralNetwork(NeuralNetwork[DefaultLayer]):
                 f"Input size ({input.shape[0]}) does not match layer size ({self.__shape[0]})"
             )
         output = input
-        for layer in self.__layers:
+
+        for i, layer in enumerate(self.__layers):
             output = layer.forward(output)
         return output
     
@@ -84,6 +85,7 @@ class DefaultNeuralNetwork(NeuralNetwork[DefaultLayer]):
     def generate(
         shape: tuple[int, ...],
         activation_functions: List[ActivationFunction],
+        weights_initializer: Callable[[int, int], DefaultWeights] = DefaultWeights.generate
     ) -> 'NeuralNetwork':
         # Check that activation_functions is of length len(shape) - 1 or len(shape)
         shape_len = len(shape)
@@ -95,10 +97,9 @@ class DefaultNeuralNetwork(NeuralNetwork[DefaultLayer]):
             # prepend none to the activation functions
             activation_functions = [None] + activation_functions
         layers = []
-        for i in range(shape_len - 1):
+        for i in range(shape_len):
             # if we are not at the last layer, generate a DefaultWeights instance, otherwise generate a None
             next_layer_shape = shape[i + 1] if i + 1 < shape_len else None
-            print(f'From DefaultNeuralNetwork - calling with activation-function type {type(activation_functions[i])}')
-            layer = DefaultLayer.generate(shape[i], activation_functions[i], next_layer_shape)
+            layer = DefaultLayer.generate(shape[i], activation_functions[i], next_layer_shape, weights_initializer)
             layers.append(layer)
         return DefaultNeuralNetwork(layers)

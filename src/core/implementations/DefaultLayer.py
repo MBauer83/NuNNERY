@@ -28,11 +28,15 @@ class DefaultLayer(FullyConnectedLayer[DefaultNeuron, DefaultWeights], FullyConn
         # set activations in neurons
         for i, neuron in enumerate(self.__neurons):
             neuron.set_activation(activations[i])
+
         output = activations if self.__outgoing_weights is None else self.__outgoing_weights.as_array() @ activations
         return output
 
     def get_activations(self) -> np.ndarray[float]:
         return np.array([neuron.get_activation() for neuron in self.__neurons])
+
+    def get_activation_function(self) -> ActivationFunction:
+        return self.__activation_function
 
     def get_weighted_input(self) -> np.ndarray[float]:
         return self.__z
@@ -55,14 +59,21 @@ class DefaultLayer(FullyConnectedLayer[DefaultNeuron, DefaultWeights], FullyConn
     def set_neurons_and_outgoing_weights(self, neurons: List[DefaultNeuron], outgoing_weights: Weights | None) -> None:
         neurons_count = len(neurons)
         self.__outgoing_weights = None
-        if outgoing_weights is not None and (
-            (not len(outgoing_weights.shape()) == 2) or
-            (not outgoing_weights.as_array().dtype == np.float64) or
-            (not outgoing_weights.shape()[1] == neurons_count)
-        ):
-            raise ValueError(
-                f"Outgoing weights shape ({outgoing_weights.shape()} does not match layer size ({neurons_count})"
-            )
+        
+        if outgoing_weights is not None:
+            if (not len(outgoing_weights.shape()) == 2):
+                raise ValueError(
+                    f"Outgoing weights shape ({outgoing_weights.shape()}) is not 2-dimensional"
+                )
+            if (not outgoing_weights.as_array().dtype == np.float64):
+                raise ValueError(
+                    f"Outgoing weights dtype ({outgoing_weights.as_array().dtype}) is not float64"
+                )
+            if (not outgoing_weights.shape()[1] == neurons_count):
+                raise ValueError(
+                    f"Outgoing weights shape ({outgoing_weights.shape()} does not match layer size ({neurons_count})"
+                )
+        
         self.__outgoing_weights = outgoing_weights
         self.__neuron_count: int = neurons_count
         self.__neurons: np.ndarray[DefaultNeuron] = neurons

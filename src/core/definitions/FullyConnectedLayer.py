@@ -17,6 +17,10 @@ class FullyConnectedLayer(Layer, Generic[NeuronType_co, WeightType_co]):
         raise NotImplementedError
     
     @abstractmethod
+    def get_activation_function(self) -> ActivationFunction:
+        raise NotImplementedError
+    
+    @abstractmethod
     def get_weighted_input(self) -> np.ndarray[float]:
         raise NotImplementedError
     
@@ -48,6 +52,8 @@ class FullyConnectedLayer(Layer, Generic[NeuronType_co, WeightType_co]):
     def __subclasshook__(cls, subclass):
         return ((hasattr(subclass, 'get_activations') and
                 callable(subclass.get_activations) and
+                hasattr(subclass, 'get_activation_function') and
+                callable(subclass.get_activation_function) and
                 hasattr(subclass, 'get_weighted_input') and
                 callable(subclass.get_weighted_input) and
                 hasattr(subclass, 'get_biases') and
