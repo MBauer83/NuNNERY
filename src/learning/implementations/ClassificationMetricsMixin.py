@@ -2,22 +2,6 @@ from typing import *
 import numpy as np
 
 class ClassificationMetricsMixin:
-    _class_names: List[str]
-    _true_positives: int
-    _false_positives: int
-    _true_negatives: int
-    _false_negatives: int
-    _true_positive_rate: float
-    _false_positive_rate: float
-    _true_negative_rate: float
-    _false_negative_rate: float
-    _overall_confusion_matrix: np.ndarray[int|float]
-    _overall_rates_matrix: np.ndarray[int|float]
-    _accuracy: float
-    _precision: float
-    _recall: float
-    _f1_score: float
-    _support: float
 
     def __init__(self, class_names: List[str], true_positives: int, false_positives: int, true_negatives: int, false_negatives: int):
         self.__class_names = class_names

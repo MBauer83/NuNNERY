@@ -2,11 +2,10 @@ from abc import ABCMeta, abstractmethod
 from typing import Callable, TypeVar, Generic
 import numpy as np
 from .Layer import Layer
-from .ActivationFunction import ActivationFunction
 
 LayerType_co = TypeVar('LayerType_co', covariant=True, bound=Layer)
 
-class NeuralNetwork(metaclass=ABCMeta):
+class NeuralNetwork(Generic[LayerType_co], metaclass=ABCMeta):
 
     @abstractmethod
     def forward(self, input: np.ndarray[float]) -> np.ndarray[float]:
@@ -17,11 +16,15 @@ class NeuralNetwork(metaclass=ABCMeta):
         raise NotImplementedError
     
     @abstractmethod
-    def compile() -> Callable[[np.ndarray[float]], np.ndarray[float]]:
+    def compile(self) -> Callable[[np.ndarray[float]], np.ndarray[float]]:
         raise NotImplementedError
     
     @abstractmethod
     def shape(self) -> tuple[int, ...]:
+        raise NotImplementedError
+    
+    @abstractmethod
+    def get_layer(self, index: int) -> LayerType_co:
         raise NotImplementedError
     
     @classmethod
@@ -33,5 +36,7 @@ class NeuralNetwork(metaclass=ABCMeta):
                 hasattr(subclass, 'compile') and
                 callable(subclass.compile) and
                 hasattr(subclass, 'shape') and
-                callable(subclass.shape)) or
+                callable(subclass.shape) and
+                hasattr(subclass, 'get_layer') and
+                callable(subclass.get_layer)) or
                 NotImplemented)

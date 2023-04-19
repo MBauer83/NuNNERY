@@ -1,5 +1,4 @@
 from abc import ABCMeta, abstractmethod
-from typing import tuple
 import numpy as np
 
 class Layer(metaclass=ABCMeta):

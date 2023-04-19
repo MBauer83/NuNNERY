@@ -1,4 +1,4 @@
-from core.definitions.NeuralNetwork import NeuralNetwork
+from src.core.definitions.NeuralNetwork import NeuralNetwork
 from learning.definitions.NeuralNetworkProblem import NeuralNetworkProblem
 
 class NetworkInteractor:

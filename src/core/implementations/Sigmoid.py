@@ -1,5 +1,5 @@
 import numpy as np
-from core.definitions import ActivationFunction
+from src.core.definitions.ActivationFunction import ActivationFunction
 
 class Sigmoid(ActivationFunction):
     @staticmethod
