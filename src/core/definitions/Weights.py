@@ -31,7 +31,7 @@ class Weights(metaclass=ABCMeta):
     
     @classmethod
     def __subclasshook__(cls, subclass):
-        return (hasattr(subclass, 'as_array') and
+        return ((hasattr(subclass, 'as_array') and
                 callable(subclass.as_array) and
                 hasattr(subclass, 'add') and
                 callable(subclass.add) and
@@ -42,7 +42,7 @@ class Weights(metaclass=ABCMeta):
                 hasattr(subclass, '__len__') and
                 callable(subclass.__len__) and
                 hasattr(subclass, 'generate') and
-                callable(subclass.generate) or
+                callable(subclass.generate)) or
                 NotImplemented)
 
     

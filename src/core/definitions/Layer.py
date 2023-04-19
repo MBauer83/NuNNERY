@@ -18,10 +18,10 @@ class Layer(metaclass=ABCMeta):
 
     @classmethod
     def __subclasshook__(cls, subclass):
-        return (hasattr(subclass, 'forward') and
+        return ((hasattr(subclass, 'forward') and
                 callable(subclass.forward) and
                 hasattr(subclass, 'shape') and
                 callable(subclass.shape) and
                 hasattr(subclass, '__len__') and
-                callable(subclass.__len__) or
+                callable(subclass.__len__)) or
                 NotImplemented)

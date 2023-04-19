@@ -15,8 +15,8 @@ class ActivationFunction(metaclass=ABCMeta):
     
     @classmethod
     def __subclasshook__(cls, subclass):
-        return (hasattr(subclass, 'calculate') and
+        return ((hasattr(subclass, 'calculate') and
                 callable(subclass.calculate) and
                 hasattr(subclass, 'derivative') and
-                callable(subclass.derivative) or
+                callable(subclass.derivative)) or
                 NotImplemented)

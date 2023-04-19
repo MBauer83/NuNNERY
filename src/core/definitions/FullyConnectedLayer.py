@@ -48,7 +48,7 @@ class FullyConnectedLayer(Layer, Generic[NeuronType_co], metaclass=ABCMeta):
     
     @classmethod
     def __subclasshook__(cls, subclass):
-        return (hasattr(subclass, 'get_activations') and
+        return ((hasattr(subclass, 'get_activations') and
                 callable(subclass.get_activations) and
                 hasattr(subclass, 'get_weighted_input') and
                 callable(subclass.get_weighted_input) and
@@ -61,5 +61,5 @@ class FullyConnectedLayer(Layer, Generic[NeuronType_co], metaclass=ABCMeta):
                 hasattr(subclass, 'get_weights') and
                 callable(subclass.get_weights) and
                 hasattr(subclass, 'generate') and
-                callable(subclass.generate) or
+                callable(subclass.generate)) or
                 NotImplemented)

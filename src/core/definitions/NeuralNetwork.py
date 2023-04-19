@@ -26,12 +26,12 @@ class NeuralNetwork(metaclass=ABCMeta):
     
     @classmethod
     def __subclasshook__(cls, subclass):
-        return (hasattr(subclass, 'forward') and
+        return ((hasattr(subclass, 'forward') and
                 callable(subclass.forward) and
                 hasattr(subclass, 'get_output_activations') and
                 callable(subclass.get_output_activations) and
                 hasattr(subclass, 'compile') and
                 callable(subclass.compile) and
                 hasattr(subclass, 'shape') and
-                callable(subclass.shape) or
+                callable(subclass.shape)) or
                 NotImplemented)
