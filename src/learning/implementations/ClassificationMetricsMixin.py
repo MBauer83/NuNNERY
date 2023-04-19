@@ -20,105 +20,105 @@ class ClassificationMetricsMixin:
     _support: float
 
     def __init__(self, class_names: List[str], true_positives: int, false_positives: int, true_negatives: int, false_negatives: int):
-        self._class_names = class_names
-        self._true_positives = true_positives
-        self._false_positives = false_positives
-        self._true_negatives = true_negatives
-        self._false_negatives = false_negatives
+        self.__class_names = class_names
+        self.__true_positives = true_positives
+        self.__false_positives = false_positives
+        self.__true_negatives = true_negatives
+        self.__false_negatives = false_negatives
 
-        self._true_positive_rate = true_positives / (true_positives + false_negatives)
-        self._false_positive_rate = false_positives / (false_positives + true_negatives)
-        self._true_negative_rate = true_negatives / (true_negatives + false_positives)
-        self._false_negative_rate = false_negatives / (false_negatives + true_positives)
+        self.__true_positive_rate = true_positives / (true_positives + false_negatives)
+        self.__false_positive_rate = false_positives / (false_positives + true_negatives)
+        self.__true_negative_rate = true_negatives / (true_negatives + false_positives)
+        self.__false_negative_rate = false_negatives / (false_negatives + true_positives)
 
-        self._overall_confusion_matrix = np.array([
+        self.__overall_confusion_matrix = np.array([
             [true_positives, false_positives],
             [false_negatives, true_negatives]
         ])
 
-        self._overall_rates_matrix = np.array([
-            [self._true_positive_rate, self._false_positive_rate],
-            [self._false_negative_rate, self._true_negative_rate]
+        self.__overall_rates_matrix = np.array([
+            [self.__true_positive_rate, self.__false_positive_rate],
+            [self.__false_negative_rate, self.__true_negative_rate]
         ])
 
         total = true_positives + false_positives + true_negatives + false_negatives
-        self._accuracy = (true_positives + true_negatives) / total
-        self._precision = true_positives / (true_positives + false_positives)
-        self._recall = true_positives / (true_positives + false_negatives)
-        self._f1_score = 2 * (self._precision * self._recall) / (self._precision + self._recall)
-        self._support = total
+        self.__accuracy = (true_positives + true_negatives) / total
+        self.__precision = true_positives / (true_positives + false_positives)
+        self.__recall = true_positives / (true_positives + false_negatives)
+        self.__f1_score = 2 * (self.__precision * self.__recall) / (self.__precision + self.__recall)
+        self.__support = total
 
 
 
     def get_class_names(self) -> List[str]:
-        return self._class_names
+        return self.__class_names
     def get_no_of_true_positives(self) -> int:
-        return self._true_positives
+        return self.__true_positives
     def get_no_of_false_positives(self) -> int:
-        return self._false_positives
+        return self.__false_positives
     def get_no_of_true_negatives(self) -> int:
-        return self._true_negatives
+        return self.__true_negatives
     def get_no_of_false_negatives(self) -> int:
-        return self._false_negatives
+        return self.__false_negatives
     def get_true_positive_rate(self) -> float:
-        return self._true_positive_rate
+        return self.__true_positive_rate
     def get_false_positive_rate(self) -> float:
-        return self._false_positive_rate
+        return self.__false_positive_rate
     def get_true_negative_rate(self) -> float:
-        return self._true_negative_rate
+        return self.__true_negative_rate
     def get_false_negative_rate(self) -> float:
-        return self._false_negative_rate
+        return self.__false_negative_rate
     def get_accuracy(self) -> float|int:
-        return self._accuracy
+        return self.__accuracy
     def get_precision(self) -> float|int:
-        return self._precision
+        return self.__precision
     def get_recall(self) -> float|int:
-        return self._recall
+        return self.__recall
     def get_f1_score(self) -> float|int:
-        return self._f1_score
+        return self.__f1_score
     def get_support(self) -> float|int:
-        return self._support
+        return self.__support
     def get_overall_confusion_matrix(self) -> np.ndarray[int]:
-        return self._overall_confusion_matrix
+        return self.__overall_confusion_matrix
     def get_overall_rates_matrix(self) -> np.ndarray[float]:
-        return self._overall_rates_matrix
+        return self.__overall_rates_matrix
         
     def as_array(self) -> np.ndarray[float|int]:
         return np.array([
-            self._true_positives,
-            self._false_positives,
-            self._true_negatives,
-            self._false_negatives,
-            self._true_positive_rate,
-            self._false_positive_rate,
-            self._true_negative_rate,
-            self._false_negative_rate,
-            self._accuracy,
-            self._precision,
-            self._recall,
-            self._f1_score,
-            self._support
+            self.__true_positives,
+            self.__false_positives,
+            self.__true_negatives,
+            self.__false_negatives,
+            self.__true_positive_rate,
+            self.__false_positive_rate,
+            self.__true_negative_rate,
+            self.__false_negative_rate,
+            self.__accuracy,
+            self.__precision,
+            self.__recall,
+            self.__f1_score,
+            self.__support
         ])
     
     def as_dict(self) -> Dict[str, float|int]:
         return {
-            'true_positives': self._true_positives,
-            'false_positives': self._false_positives,
-            'true_negatives': self._true_negatives,
-            'false_negatives': self._false_negatives,
-            'true_positive_rate': self._true_positive_rate,
-            'false_positive_rate': self._false_positive_rate,
-            'true_negative_rate': self._true_negative_rate,
-            'false_negative_rate': self._false_negative_rate,
-            'accuracy': self._accuracy,
-            'precision': self._precision,
-            'recall': self._recall,
-            'f1_score': self._f1_score,
-            'support': self._support
+            'true_positives': self.__true_positives,
+            'false_positives': self.__false_positives,
+            'true_negatives': self.__true_negatives,
+            'false_negatives': self.__false_negatives,
+            'true_positive_rate': self.__true_positive_rate,
+            'false_positive_rate': self.__false_positive_rate,
+            'true_negative_rate': self.__true_negative_rate,
+            'false_negative_rate': self.__false_negative_rate,
+            'accuracy': self.__accuracy,
+            'precision': self.__precision,
+            'recall': self.__recall,
+            'f1_score': self.__f1_score,
+            'support': self.__support
         }
 
     def get_class_names(self) -> List[str]:
-        return self._class_names
+        return self.__class_names
 
     def calculate_accuracy(self, true_positives: int, false_positives: int, true_negatives: int, false_negatives: int) -> float:
         return (true_positives + true_negatives) / (true_positives + false_positives + true_negatives + false_negatives)
@@ -157,7 +157,7 @@ class ClassificationMetricsMixin:
     
     def _format_confusion_matrix(self, formatted_confusion_matrix_data: np.ndarray) -> str:
         # print confusion matrix with header labels and row labels
-        class_names_list = list(self._class_names)
+        class_names_list = list(self.__class_names)
         longest_class_name_length = max([len(x) for x in class_names_list])
         # longest field length is max string length from printable confusion matrix
         longest_field_length = np.max([len(x) for x in formatted_confusion_matrix_data.flatten()])

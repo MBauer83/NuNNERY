@@ -7,9 +7,9 @@ from .ClassificationMetricsMixin import ClassificationMetricsMixin
 class MultiClassClassificationMetrics(ClassificationMetrics, ClassificationMetricsMixin):
 
     def __init__(self, class_names: List[str], confusion_matrix: np.ndarray[int|float], per_class_metrics: List[BinaryClassificationMetrics]):
-        self._multiclass_confusion_matrix = confusion_matrix
-        self._multiclass_rates_matrix = self._get_multiclass_rates_matrix(confusion_matrix)
-        self._per_class_metrics = per_class_metrics
+        self.__multiclass_confusion_matrix = confusion_matrix
+        self.__multiclass_rates_matrix = self.__get_multiclass_rates_matrix(confusion_matrix)
+        self.__per_class_metrics = per_class_metrics
 
         # sum up true positives, false positives, true negatives, false negatives over the per_class_metrics
         total_true_positives = np.sum([metrics.get_no_of_true_positives() for metrics in per_class_metrics])
@@ -23,12 +23,12 @@ class MultiClassClassificationMetrics(ClassificationMetrics, ClassificationMetri
         # override the accuracy, precision, recall, f1_score, and support values with weighted averages
         no_of_data_points = np.sum(confusion_matrix)
         (
-            self._accuracy,
-            self._precision,
-            self._recall,
-            self._f1_score,
-            self._support
-        ) = self._calculate_weighted_averages_from_per_class_metrics(no_of_data_points, per_class_metrics)
+            self.__accuracy,
+            self.__precision,
+            self.__recall,
+            self.__f1_score,
+            self.__support
+        ) = self.__calculate_weighted_averages_from_per_class_metrics(no_of_data_points, per_class_metrics)
 
 
     def _get_multiclass_rates_matrix(self, confusion_matrix: np.ndarray) -> np.ndarray:
@@ -58,35 +58,35 @@ class MultiClassClassificationMetrics(ClassificationMetrics, ClassificationMetri
         return avg_accuracy, avg_precision, avg_recall, avg_f1_score, avg_support
     
     def print(self):
-        joined_class_names = ' | '.join(self._class_names)
+        joined_class_names = ' | '.join(self.__class_names)
         print()
         print()
         print(
             f'Classification metrics for multi-class problem ({joined_class_names}):'
         )
         print(
-            f'True positives: {self._true_positives} ({self._true_positive_rate * 100:.4f}%)'
+            f'True positives: {self.__true_positives} ({self.__true_positive_rate * 100:.4f}%)'
         )
         print(
-            f'False positives: {self._false_positives} ({self._false_positive_rate * 100:.4f}%)'
+            f'False positives: {self.__false_positives} ({self.__false_positive_rate * 100:.4f}%)'
         )
         print(
-            f'True negatives: {self._true_negatives} ({self._true_negative_rate * 100:.4f}%)'
+            f'True negatives: {self.__true_negatives} ({self.__true_negative_rate * 100:.4f}%)'
         )
         print(
-            f'False negatives: {self._false_negatives} ({self._false_negative_rate * 100:.4f}%)'
+            f'False negatives: {self.__false_negatives} ({self.__false_negative_rate * 100:.4f}%)'
         )
-        print(f'Accuracy: {self._accuracy:.4f}')
-        print(f'Precision: {self._precision:.4f}')
-        print(f'Recall: {self._recall:.4f}')
-        print(f'F1 score: {self._f1_score:.4f}')
-        print(f'Support: {self._support:.4f}')
+        print(f'Accuracy: {self.__accuracy:.4f}')
+        print(f'Precision: {self.__precision:.4f}')
+        print(f'Recall: {self.__recall:.4f}')
+        print(f'F1 score: {self.__f1_score:.4f}')
+        print(f'Support: {self.__support:.4f}')
         print()
         print("Confusion matrix:")
         print(
-            self._format_confusion_matrix(
-                self._format_confusion_matrix_data(
-                    self._multiclass_confusion_matrix, self._multiclass_rates_matrix
+            self.__format_confusion_matrix(
+                self.__format_confusion_matrix_data(
+                    self.__multiclass_confusion_matrix, self.__multiclass_rates_matrix
                 )
             )
         )

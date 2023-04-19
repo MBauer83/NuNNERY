@@ -8,7 +8,7 @@ class BinaryClassificationMetrics(ClassificationMetrics, ClassificationMetricsMi
 
     def __init__(
         self,
-        class_names: Tuple[str, str],
+        class_names: tuple[str, str],
         true_positives: int,
         false_positives: int,
         true_negatives: int,
@@ -20,31 +20,31 @@ class BinaryClassificationMetrics(ClassificationMetrics, ClassificationMetricsMi
         print()
         print()
         print(
-            f'Classification metrics for binary problem ({self._class_names[0]} | {self._class_names[1]}):'
+            f'Classification metrics for binary problem ({self.__class_names[0]} | {self.__class_names[1]}):'
         )
         print(
-            f'True positives: {self._true_positives} ({self._true_positives_rate * 100:.4f}%)'
+            f'True positives: {self.__true_positives} ({self.__true_positives_rate * 100:.4f}%)'
         )
         print(
-            f'False positives: {self._false_positives} ({self._false_positives_rate * 100:.4f}%)'
+            f'False positives: {self.__false_positives} ({self.__false_positives_rate * 100:.4f}%)'
         )
         print(
-            f'True negatives: {self._true_negatives} ({self._true_negatives_rate * 100:.4f}%)'
+            f'True negatives: {self.__true_negatives} ({self.__true_negatives_rate * 100:.4f}%)'
         )
         print(
-            f'False negatives: {self._false_negatives} ({self._false_negatives_rate * 100:.4f}%)'
+            f'False negatives: {self.__false_negatives} ({self.__false_negatives_rate * 100:.4f}%)'
         )
-        print(f'Accuracy: {self._accuracy:.4f}')
-        print(f'Precision: {self._precision:.4f}')
-        print(f'Recall: {self._recall:.4f}')
-        print(f'F1 score: {self._f1_score:.4f}')
-        print(f'Support: {self._support:.4f}')
+        print(f'Accuracy: {self.__accuracy:.4f}')
+        print(f'Precision: {self.__precision:.4f}')
+        print(f'Recall: {self.__recall:.4f}')
+        print(f'F1 score: {self.__f1_score:.4f}')
+        print(f'Support: {self.__support:.4f}')
         print()
         print("Confusion matrix:")
         print(
-            self._format_confusion_matrix(
-                self._format_confusion_matrix_data(
-                    self._overall_confusion_matrix, self._overall_rates_matrix
+            self.__format_confusion_matrix(
+                self.__format_confusion_matrix_data(
+                    self.__overall_confusion_matrix, self.__overall_rates_matrix
                 )
             )
         )
@@ -53,7 +53,7 @@ class BinaryClassificationMetrics(ClassificationMetrics, ClassificationMetricsMi
     def _calculate_input_from_raw_data(
         expected_one_hot: List[np.ndarray[int]],
         actual_one_hot: List[np.ndarray[int]]
-    ) -> Tuple[int, int, int, int]:
+    ) -> tuple[int, int, int, int]:
 
         true_positives = 0
         false_positives = 0

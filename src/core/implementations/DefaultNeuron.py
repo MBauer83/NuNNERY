@@ -1,4 +1,4 @@
-from core.definitions import Neuron
+from core.definitions.Neuron import Neuron
 
 class DefaultNeuron(Neuron):
     # bias need not be used if the bias-trick is used
@@ -11,3 +11,9 @@ class DefaultNeuron(Neuron):
 
     def get_bias(self) -> float:
         return self.bias
+    
+    def set_activation(self, activation: float) -> None:
+        self.activation = activation
+
+    def set_bias(self, bias: float) -> None:
+        self.bias = bias

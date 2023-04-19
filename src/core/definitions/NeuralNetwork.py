@@ -1,32 +1,37 @@
-from typing import *
+from abc import ABCMeta, abstractmethod
+from typing import Callable, TypeVar, Generic
 import numpy as np
 from .Layer import Layer
 from .ActivationFunction import ActivationFunction
-from core.implementations import DefaultLayer, DefaultWeights, DefaultNeuralNetwork
 
-class NeuralNetwork:
+LayerType_co = TypeVar('LayerType_co', covariant=True, bound=Layer)
+
+class NeuralNetwork(metaclass=ABCMeta):
+
+    @abstractmethod
     def forward(self, input: np.ndarray[float]) -> np.ndarray[float]:
-        pass
+        raise NotImplementedError
+    
+    @abstractmethod
     def get_output_activations(self) -> np.ndarray[float]:
-        pass
+        raise NotImplementedError
+    
+    @abstractmethod
     def compile() -> Callable[[np.ndarray[float]], np.ndarray[float]]:
-        pass
-    @staticmethod
-    def generate(
-        shape: tuple[int, ...],
-        activation_functions: List[ActivationFunction],
-    ) -> 'NeuralNetwork':
-        # check that activation_functions is of length len(shape) - 1 or len(shape)
-        shape_len = len(shape)
-        activation_functions_len = len(activation_functions)
-        input_has_activation_function = shape_len == activation_functions_len
-        if shape_len - 1 != activation_functions_len and not input_has_activation_function:
-            raise ValueError("Length of activation_functions must be either len(shape) - 1 or len(shape)")
-        layers = []
-        if not input_has_activation_function:
-            # prepend none to the activation functions
-            activation_functions = [None] + activation_functions
-        for i in range(shape_len - 1):
-            next_layer_shape = shape[i + 1] if i + 1 < shape_len else None
-            layers.append(DefaultLayer.generate(shape[i], next_layer_shape, activation_functions[i]))
-        return DefaultNeuralNetwork(layers)
+        raise NotImplementedError
+    
+    @abstractmethod
+    def shape(self) -> tuple[int, ...]:
+        raise NotImplementedError
+    
+    @classmethod
+    def __subclasshook__(cls, subclass):
+        return (hasattr(subclass, 'forward') and
+                callable(subclass.forward) and
+                hasattr(subclass, 'get_output_activations') and
+                callable(subclass.get_output_activations) and
+                hasattr(subclass, 'compile') and
+                callable(subclass.compile) and
+                hasattr(subclass, 'shape') and
+                callable(subclass.shape) or
+                NotImplemented)
