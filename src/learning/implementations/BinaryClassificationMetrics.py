@@ -1,6 +1,5 @@
-from typing import *
 import numpy as np
-from learning.definitions import ClassificationMetrics
+from src.learning.definitions.ClassificationMetrics import ClassificationMetrics
 from .ClassificationMetricsMixin import ClassificationMetricsMixin
 
 
@@ -51,8 +50,8 @@ class BinaryClassificationMetrics(ClassificationMetrics, ClassificationMetricsMi
 
     @staticmethod
     def _calculate_input_from_raw_data(
-        expected_one_hot: List[np.ndarray[int]],
-        actual_one_hot: List[np.ndarray[int]]
+        expected_one_hot: list[np.ndarray[int]],
+        actual_one_hot: list[np.ndarray[int]]
     ) -> tuple[int, int, int, int]:
 
         true_positives = 0
@@ -75,9 +74,9 @@ class BinaryClassificationMetrics(ClassificationMetrics, ClassificationMetricsMi
 
     @staticmethod
     def from_raw_data(
-        class_names: List[str],
-        expected_one_hot: List[np.ndarray[int]],
-        actual_one_hot: List[np.ndarray[int]]
+        class_names: list[str],
+        expected_one_hot: list[np.ndarray[int]],
+        actual_one_hot: list[np.ndarray[int]]
     ) -> 'ClassificationMetrics':
 
         # check dimensions of expected and actual match

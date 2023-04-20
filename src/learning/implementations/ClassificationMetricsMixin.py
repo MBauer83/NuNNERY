@@ -1,9 +1,8 @@
-from typing import *
 import numpy as np
 
 class ClassificationMetricsMixin:
 
-    def __init__(self, class_names: List[str], true_positives: int, false_positives: int, true_negatives: int, false_negatives: int):
+    def __init__(self, class_names: list[str], true_positives: int, false_positives: int, true_negatives: int, false_negatives: int):
         self.__class_names = class_names
         self.__true_positives = true_positives
         self.__false_positives = false_positives
@@ -34,7 +33,7 @@ class ClassificationMetricsMixin:
 
 
 
-    def get_class_names(self) -> List[str]:
+    def get_class_names(self) -> list[str]:
         return self.__class_names
     def get_no_of_true_positives(self) -> int:
         return self.__true_positives
@@ -101,7 +100,7 @@ class ClassificationMetricsMixin:
             'support': self.__support
         }
 
-    def get_class_names(self) -> List[str]:
+    def get_class_names(self) -> list[str]:
         return self.__class_names
 
     def calculate_accuracy(self, true_positives: int, false_positives: int, true_negatives: int, false_negatives: int) -> float:

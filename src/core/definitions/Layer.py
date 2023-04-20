@@ -1,7 +1,7 @@
-from abc import ABCMeta, abstractmethod
+from abc import ABC, abstractmethod
 import numpy as np
 
-class Layer(metaclass=ABCMeta):
+class Layer(ABC):
 
     @abstractmethod
     def forward(self, input: np.ndarray[float]) -> np.ndarray[float]:

@@ -1,6 +1,6 @@
-from abc import ABCMeta, abstractmethod
+from abc import ABC, abstractmethod
 
-class Neuron(metaclass=ABCMeta):
+class Neuron(ABC):
 
     @abstractmethod
     def get_activation(self) -> float:

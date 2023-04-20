@@ -1,11 +1,11 @@
-from abc import ABCMeta, abstractmethod
+from abc import ABC, abstractmethod
 from typing import Callable, TypeVar, Generic
 import numpy as np
 from .Layer import Layer
 
 LayerType_co = TypeVar('LayerType_co', covariant=True, bound=Layer)
 
-class NeuralNetwork(Generic[LayerType_co], metaclass=ABCMeta):
+class NeuralNetwork(Generic[LayerType_co], ABC):
 
     @abstractmethod
     def forward(self, input: np.ndarray[float]) -> np.ndarray[float]:

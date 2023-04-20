@@ -1,8 +1,7 @@
-from typing import *
 import numpy as np
-from learning.definitions.NeuralNetworkPerformanceStatistics import NeuralNetworkPerformanceStatistics
+from src.learning.definitions.LossStatistics import LossStatistics
 
-class DefaultNeuralNetworkPerformanceStatistics(NeuralNetworkPerformanceStatistics):
+class DefaultLossStatistics(LossStatistics):
     def __init__(self, sum_losses: float, mean_loss: float):
         self.sum_losses = sum_losses
         self.mean_loss = mean_loss
@@ -14,11 +13,11 @@ class DefaultNeuralNetworkPerformanceStatistics(NeuralNetworkPerformanceStatisti
         print("Sum losses: " + str(self.sum_losses))
         print("Mean loss: " + str(self.mean_loss))
     @staticmethod
-    def from_float_array(array: np.ndarray[float]) -> 'DefaultNeuralNetworkPerformanceStatistics':
-        return DefaultNeuralNetworkPerformanceStatistics(np.sum(array), np.mean(array))
+    def from_float_array(array: np.ndarray[float]) -> 'DefaultLossStatistics':
+        return DefaultLossStatistics(np.sum(array), np.mean(array))
     @staticmethod
-    def from_statistics(array: np.ndarray['DefaultNeuralNetworkPerformanceStatistics']) -> 'DefaultNeuralNetworkPerformanceStatistics':
+    def from_statistics(array: np.ndarray['DefaultLossStatistics']) -> 'DefaultLossStatistics':
         array = array.flatten()
         sum_losses = np.sum([s.get_sum_losses() for s in array])
         mean_loss = np.mean([s.get_mean_loss() for s in array])
-        return DefaultNeuralNetworkPerformanceStatistics(sum_losses, mean_loss)
+        return DefaultLossStatistics(sum_losses, mean_loss)

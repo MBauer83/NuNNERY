@@ -50,13 +50,13 @@ class DefaultLayer(FullyConnectedLayer[DefaultNeuron, DefaultWeights], FullyConn
     def get_outgoing_weights(self) -> Weights | None:
         return self.__outgoing_weights
 
-    def get_neurons(self) -> List[DefaultNeuron]:
+    def get_neurons(self) -> list[DefaultNeuron]:
         return self.__neurons
     
     def get_neuron_count(self) -> int:
         return len(self.__neurons)
 
-    def set_neurons_and_outgoing_weights(self, neurons: List[DefaultNeuron], outgoing_weights: Weights | None) -> None:
+    def set_neurons_and_outgoing_weights(self, neurons: list[DefaultNeuron], outgoing_weights: Weights | None) -> None:
         neurons_count = len(neurons)
         self.__outgoing_weights = None
         

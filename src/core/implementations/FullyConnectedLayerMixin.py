@@ -15,7 +15,7 @@ class FullyConnectedLayerMixin:
         next_layer_size: int | None,
         activation_function: ActivationFunction,
         layer_ctor: Callable[[int, ActivationFunction, int|None, Callable[[tuple[int, int]], DefaultWeights]], 'FullyConnectedLayerMixin'],
-        neuron_ctor: Callable[[int], List[Neuron]] = lambda x: [
+        neuron_ctor: Callable[[int], list[Neuron]] = lambda x: [
             DefaultNeuron(0.) for _ in range(x)
         ]
     ) -> 'FullyConnectedLayerMixin':

@@ -1,5 +1,5 @@
-from abc import ABCMeta, abstractmethod
-from typing import List, Callable, Generic, Type, TypeVar
+from abc import ABC, abstractmethod
+from typing import  Callable, Generic, Type, TypeVar
 import numpy as np
 from .Neuron import Neuron
 from .Weights import Weights
@@ -10,7 +10,7 @@ NeuronType_co = TypeVar('NeuronType_co', covariant=True, bound=Neuron)
 WeightType_co = TypeVar('WeightType_co', covariant=True, bound=Weights)
 
 class FullyConnectedLayer(Layer, Generic[NeuronType_co, WeightType_co]):
-    __metaclass__ = ABCMeta
+    __metaclass__ = ABC
 
     @abstractmethod
     def get_activations(self) -> np.ndarray[float]:
@@ -33,7 +33,7 @@ class FullyConnectedLayer(Layer, Generic[NeuronType_co, WeightType_co]):
         raise NotImplementedError
     
     @abstractmethod
-    def get_neurons(self) -> List[NeuronType_co]:
+    def get_neurons(self) -> list[NeuronType_co]:
         raise NotImplementedError
 
     @staticmethod
@@ -43,8 +43,8 @@ class FullyConnectedLayer(Layer, Generic[NeuronType_co, WeightType_co]):
         next_layer_size: int | None,
         activation_function: ActivationFunction, 
         weights_initializer: Callable[[tuple[int, int]], Type[WeightType_co]] | None,
-        neuron_ctor: Callable[[int], List[Type[NeuronType_co]]],
-        layer_ctor: Callable[[List[Type[NeuronType_co]], ActivationFunction, Type[WeightType_co]], 'Layer']
+        neuron_ctor: Callable[[int], list[Type[NeuronType_co]]],
+        layer_ctor: Callable[[list[Type[NeuronType_co]], ActivationFunction, Type[WeightType_co]], 'Layer']
     ) -> 'Layer':
         raise NotImplementedError
     

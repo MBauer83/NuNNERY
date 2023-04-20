@@ -1,7 +1,7 @@
 import tkinter as tk
 import re
 from tkinter import filedialog
-from abc import ABCMeta, abstractmethod
+from abc import ABC, abstractmethod
 from typing import Callable
 
 class MethodSignature:
@@ -16,7 +16,7 @@ class InterfaceGenerator:
         # use filedialog to select a directory and set it as the target directory
         self.target_directory_entry.delete(0, tk.END)
         self.target_directory_entry.insert(0, filedialog.askdirectory())
-        
+
 
     def __init__(self, root):
         self.method_signature_entry = tk.Entry
@@ -71,7 +71,7 @@ class InterfaceGenerator:
         self.method_signatures: list[MethodSignature] = []
 
         # Initialize imports list
-        self.imports: list[str] = ["from abc import ABCMeta, abstractmethod"]
+        self.imports: list[str] = ["from abc import ABC, abstractmethod"]
         self.import_listbox.insert(0, self.imports[0])
 
     def _handle_button_error(self, fun: Callable[[], None]) -> None:
@@ -116,7 +116,7 @@ class InterfaceGenerator:
         if len(selected_import) == 0:
             return
 
-        # cannot move or remove the first import "from abc import ABCMeta, abstractmethod"
+        # cannot move or remove the first import "from abc import ABC, abstractmethod"
         if selected_import[0] == 0:
             tk.messagebox.showerror("Error", "Cannot remove the necessary imports for an interface")
 
@@ -130,7 +130,7 @@ class InterfaceGenerator:
         if len(selected_import) == 0:
             return
 
-        # cannot move or remove the first import "from abc import ABCMeta, abstractmethod"
+        # cannot move or remove the first import "from abc import ABC, abstractmethod"
         if selected_import[0] == 0:
             tk.messagebox.showerror("Error", "Cannot move the necessary imports for an interface")
 
@@ -145,7 +145,7 @@ class InterfaceGenerator:
         if len(selected_import) == 0:
             return
 
-        # cannot move or remove the first import "from abc import ABCMeta, abstractmethod"
+        # cannot move or remove the first import "from abc import ABC, abstractmethod"
         if selected_import[0] == 0:
             tk.messagebox.showerror("Error", "Cannot move the necessary imports for an interface")
 
@@ -224,7 +224,7 @@ class InterfaceGenerator:
         class_code += "\n"
 
         # Create abstract class with given interface name and method signatures
-        class_code += f"class {interface_name}(metaclass=ABCMeta):\n"
+        class_code += f"class {interface_name}(ABC):\n"
         for signature in method_signatures:
             signature_str = signature.signature
             method_code = ""

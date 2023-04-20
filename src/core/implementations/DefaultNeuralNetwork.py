@@ -10,7 +10,7 @@ from .DefaultLayer import DefaultLayer
 
 
 class DefaultNeuralNetwork(NeuralNetwork[DefaultLayer]):
-    def __init__(self, layers: List[FullyConnectedLayer[DefaultNeuron, DefaultWeights]]):
+    def __init__(self, layers: list[FullyConnectedLayer[DefaultNeuron, DefaultWeights]]):
         # check that there are at least 2 layers
         if len(layers) < 2:
             raise ValueError("Invalid neural network initialization - at least 2 layers are required. Actual number of layers: " + str(len(layers)) + ".")
@@ -92,7 +92,7 @@ class DefaultNeuralNetwork(NeuralNetwork[DefaultLayer]):
     @staticmethod
     def generate(
         shape: tuple[int, ...],
-        activation_functions: List[ActivationFunction],
+        activation_functions: list[ActivationFunction],
         weights_initializer: Callable[[int, int], DefaultWeights] = DefaultWeights.generate
     ) -> 'NeuralNetwork':
         # Check that activation_functions is of length len(shape) - 1 or len(shape)

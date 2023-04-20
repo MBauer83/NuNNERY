@@ -1,8 +1,8 @@
-from abc import ABCMeta, abstractmethod
+from abc import ABC, abstractmethod
 from typing import Callable
 import numpy as np
 
-class Weights(metaclass=ABCMeta):
+class Weights(ABC):
 
     @abstractmethod
     def as_array(self) -> np.ndarray[float]:

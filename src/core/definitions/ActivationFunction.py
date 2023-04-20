@@ -1,7 +1,7 @@
-from abc import ABCMeta, abstractmethod
+from abc import ABC, abstractmethod
 import numpy as np
 
-class ActivationFunction(metaclass=ABCMeta):
+class ActivationFunction(ABC):
 
     @staticmethod
     @abstractmethod

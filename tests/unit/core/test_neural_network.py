@@ -1,6 +1,5 @@
 # append base directory `./../../`
 import sys
-# get dirname of this file
 sys.path.append('./../../')
 
 import unittest

@@ -1,5 +1,5 @@
 import numpy as np
-from learning.definitions import LossFunction
+from src.learning.definitions import LossFunction
 from .LossFunctionMixin import LossFunctionMixin
 
 class MeanSquaredLogError(LossFunction, LossFunctionMixin):

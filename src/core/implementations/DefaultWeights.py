@@ -7,16 +7,16 @@ class DefaultWeights(Weights):
         self.__weights = weights
 
     def get_weights(self) -> np.ndarray[float]:
-        return self.weights
+        return self.__weights
 
     def set_weights(self, weights: np.ndarray[float]) -> None:
-        self.weights = weights
+        self.__weights = weights
 
     def add(self, weights_delta: np.ndarray[float]) -> None:
-        self.weights += weights_delta
+        self.__weights += weights_delta
 
     def multiply(self, factor: float) -> None:
-        self.weights *= factor
+        self.__weights *= factor
     
     def as_array(self) -> np.ndarray[float]:
         return self.__weights
@@ -25,7 +25,7 @@ class DefaultWeights(Weights):
         return self.__weights.shape
     
     def __len__(self) -> int:
-        return len(self.__weights)
+        return len(self.__weights.flatten())
 
     @staticmethod
     def generate(

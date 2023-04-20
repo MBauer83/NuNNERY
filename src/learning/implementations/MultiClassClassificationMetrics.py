@@ -1,12 +1,12 @@
 from typing import *
 import numpy as np
-from learning.definitions.ClassificationMetrics import ClassificationMetrics
+from src.learning.definitions.ClassificationMetrics import ClassificationMetrics
 from .BinaryClassificationMetrics import BinaryClassificationMetrics
 from .ClassificationMetricsMixin import ClassificationMetricsMixin
 
 class MultiClassClassificationMetrics(ClassificationMetrics, ClassificationMetricsMixin):
 
-    def __init__(self, class_names: List[str], confusion_matrix: np.ndarray[int|float], per_class_metrics: List[BinaryClassificationMetrics]):
+    def __init__(self, class_names: list[str], confusion_matrix: np.ndarray[int|float], per_class_metrics: list[BinaryClassificationMetrics]):
         self.__multiclass_confusion_matrix = confusion_matrix
         self.__multiclass_rates_matrix = self.__get_multiclass_rates_matrix(confusion_matrix)
         self.__per_class_metrics = per_class_metrics
@@ -93,7 +93,7 @@ class MultiClassClassificationMetrics(ClassificationMetrics, ClassificationMetri
     
 
     @staticmethod
-    def from_raw_data(class_names: List[str], expected_one_hot: List[np.ndarray[int]], actual_one_hot: List[np.ndarray[int]]) -> 'ClassificationMetrics':
+    def from_raw_data(class_names: list[str], expected_one_hot: list[np.ndarray[int]], actual_one_hot: list[np.ndarray[int]]) -> 'ClassificationMetrics':
         # check dimensions of expected and actual match
         if len(expected_one_hot) != len(actual_one_hot):
             raise ValueError("Expected and actual data must have the same length")
