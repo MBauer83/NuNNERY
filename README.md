@@ -1,5 +1,5 @@
 # NuNNERY - Numeric Neural-Network Extensible Research Youngster 
-Every projects needs a punny name - coming up with that *has* to be at least 30% of the development budget. In lieu of an actual budget, I spent about 5 minutes on this one. Yes, it shows... I know. ;)
+Every projects needs a punny name - coming up with one *has* to be at least 30% of the development budget. In lieu of an actual budget, I spent about 5 minutes on this name. Yes, it shows... I know. ;)
 
 ## Purpose and Scope
 NuNNERY is a simple, easy to use, and extendable library for learning and experimenting with neural networks. It is written in Python 3. It demonstrates the structured implementation of a network-architecture and a backpropagation-learning algorithm as well as live-presentation of the learning progress using matplotlib's pyplot. TKinter is used for interactive drawing of the network's input after training and testing. 
