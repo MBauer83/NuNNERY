@@ -8,7 +8,7 @@ LayerType_co = TypeVar('LayerType_co', covariant=True, bound=Layer)
 class NeuralNetwork(Generic[LayerType_co], ABC):
 
     @abstractmethod
-    def forward(self, input: np.ndarray[float]) -> np.ndarray[float]:
+    def forward(self, network_input: np.ndarray[float]) -> np.ndarray[float]:
         raise NotImplementedError
     
     @abstractmethod

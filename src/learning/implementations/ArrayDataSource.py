@@ -1,8 +1,8 @@
 import numpy as np
 from typing import Generic, Type
-from src.learning.definitions.DataSource import DataSourceType_co
-from src.learning.definitions.SplittableDataSource import SplittableDataSource
-from src.learning.definitions.ResettableDataSource import ResettableDataSource
+from ...learning.definitions.DataSource import DataSourceType_co
+from ...learning.definitions.SplittableDataSource import SplittableDataSource
+from ...learning.definitions.ResettableDataSource import ResettableDataSource
 
 DataSourceArray = np.ndarray[DataSourceType_co]
 StaticDataSourceArray = np.ndarray[Type[DataSourceType_co]]
@@ -34,7 +34,7 @@ class ArrayDataSource(Generic[DataSourceType_co], SplittableDataSource[DataSourc
     def reset(self) -> None:
         self.__idx = 0
 
-    def split(self, splits: tuple[float, ...]) -> tuple[SplittableDataSource[DataSourceType_co], ...]:
+    def split(self, splits: tuple[int, ...]) -> tuple[SplittableDataSource[DataSourceType_co], ...]:
         return self.split_from_array(self.__data, splits)
         
     

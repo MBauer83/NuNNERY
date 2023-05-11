@@ -1,6 +1,7 @@
 import numpy as np
+from src.learning.definitions.Classification import Classification
 
-class ClassificationMixin():
+class ClassificationMixin(Classification):
     def __init__(self, classes: list[str]):
         self.__classes = classes
         self.__no_of_classes = len(classes)
@@ -19,3 +20,4 @@ class ClassificationMixin():
     def get_one_hot_encoding(self, label: str) -> np.ndarray:
         one_hot_encoding = np.zeros(self.__no_of_classes)
         one_hot_encoding[self.__classes.index(label)] = 1
+        return one_hot_encoding

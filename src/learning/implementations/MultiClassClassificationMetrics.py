@@ -1,4 +1,3 @@
-from typing import *
 import numpy as np
 from src.learning.definitions.ClassificationMetrics import ClassificationMetrics
 from .BinaryClassificationMetrics import BinaryClassificationMetrics

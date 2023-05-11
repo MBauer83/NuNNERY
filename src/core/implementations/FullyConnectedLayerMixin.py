@@ -1,9 +1,6 @@
 from typing import *
-import numpy as np
-from src.core.definitions.Neuron import Neuron
-from src.core.definitions.Weights import Weights
-from src.core.definitions.ActivationFunction import ActivationFunction
-from src.core.definitions.Layer import Layer
+from ..definitions.Neuron import Neuron
+from ..definitions.ActivationFunction import ActivationFunction
 from .DefaultNeuron import DefaultNeuron
 from .DefaultWeights import DefaultWeights
 

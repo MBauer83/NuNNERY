@@ -1,5 +1,5 @@
 import numpy as np
-from src.learning.definitions.ClassificationMetrics import ClassificationMetrics
+from ...learning.definitions.ClassificationMetrics import ClassificationMetrics
 from .ClassificationMetricsMixin import ClassificationMetricsMixin
 
 
@@ -13,7 +13,8 @@ class BinaryClassificationMetrics(ClassificationMetrics, ClassificationMetricsMi
         true_negatives: int,
         false_negatives: int
     ):
-        super().__init__(class_names, true_positives, false_positives, true_negatives, false_negatives)
+        class_names_list = list(class_names)
+        super().__init__(class_names_list, true_positives, false_positives, true_negatives, false_negatives)
 
     def print(self):
         print()
@@ -22,16 +23,16 @@ class BinaryClassificationMetrics(ClassificationMetrics, ClassificationMetricsMi
             f'Classification metrics for binary problem ({self.__class_names[0]} | {self.__class_names[1]}):'
         )
         print(
-            f'True positives: {self.__true_positives} ({self.__true_positives_rate * 100:.4f}%)'
+            f'True positives: {self.__true_positives}'
         )
         print(
-            f'False positives: {self.__false_positives} ({self.__false_positives_rate * 100:.4f}%)'
+            f'False positives: {self.__false_positives}'
         )
         print(
-            f'True negatives: {self.__true_negatives} ({self.__true_negatives_rate * 100:.4f}%)'
+            f'True negatives: {self.__true_negatives}'
         )
         print(
-            f'False negatives: {self.__false_negatives} ({self.__false_negatives_rate * 100:.4f}%)'
+            f'False negatives: {self.__false_negatives}'
         )
         print(f'Accuracy: {self.__accuracy:.4f}')
         print(f'Precision: {self.__precision:.4f}')

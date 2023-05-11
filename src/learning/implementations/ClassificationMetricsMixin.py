@@ -35,71 +35,52 @@ class ClassificationMetricsMixin:
 
     def get_class_names(self) -> list[str]:
         return self.__class_names
+    
     def get_no_of_true_positives(self) -> int:
         return self.__true_positives
+    
     def get_no_of_false_positives(self) -> int:
         return self.__false_positives
+    
     def get_no_of_true_negatives(self) -> int:
         return self.__true_negatives
+    
     def get_no_of_false_negatives(self) -> int:
         return self.__false_negatives
+    
     def get_true_positive_rate(self) -> float:
         return self.__true_positive_rate
+    
     def get_false_positive_rate(self) -> float:
         return self.__false_positive_rate
+    
     def get_true_negative_rate(self) -> float:
         return self.__true_negative_rate
+    
     def get_false_negative_rate(self) -> float:
         return self.__false_negative_rate
+    
     def get_accuracy(self) -> float|int:
         return self.__accuracy
+    
     def get_precision(self) -> float|int:
         return self.__precision
+    
     def get_recall(self) -> float|int:
         return self.__recall
+    
     def get_f1_score(self) -> float|int:
         return self.__f1_score
+    
     def get_support(self) -> float|int:
         return self.__support
+    
     def get_overall_confusion_matrix(self) -> np.ndarray[int]:
         return self.__overall_confusion_matrix
+    
     def get_overall_rates_matrix(self) -> np.ndarray[float]:
         return self.__overall_rates_matrix
-        
-    def as_array(self) -> np.ndarray[float|int]:
-        return np.array([
-            self.__true_positives,
-            self.__false_positives,
-            self.__true_negatives,
-            self.__false_negatives,
-            self.__true_positive_rate,
-            self.__false_positive_rate,
-            self.__true_negative_rate,
-            self.__false_negative_rate,
-            self.__accuracy,
-            self.__precision,
-            self.__recall,
-            self.__f1_score,
-            self.__support
-        ])
     
-    def as_dict(self) -> Dict[str, float|int]:
-        return {
-            'true_positives': self.__true_positives,
-            'false_positives': self.__false_positives,
-            'true_negatives': self.__true_negatives,
-            'false_negatives': self.__false_negatives,
-            'true_positive_rate': self.__true_positive_rate,
-            'false_positive_rate': self.__false_positive_rate,
-            'true_negative_rate': self.__true_negative_rate,
-            'false_negative_rate': self.__false_negative_rate,
-            'accuracy': self.__accuracy,
-            'precision': self.__precision,
-            'recall': self.__recall,
-            'f1_score': self.__f1_score,
-            'support': self.__support
-        }
-
     def get_class_names(self) -> list[str]:
         return self.__class_names
 

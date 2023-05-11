@@ -1,9 +1,9 @@
 from typing import *
 import numpy as np
-from src.core.definitions.Layer import Layer
-from src.core.definitions.FullyConnectedLayer import FullyConnectedLayer
-from src.core.definitions.NeuralNetwork import NeuralNetwork
-from src.core.definitions.ActivationFunction import ActivationFunction
+from ..definitions.Layer import Layer
+from ..definitions.FullyConnectedLayer import FullyConnectedLayer
+from ..definitions.NeuralNetwork import NeuralNetwork
+from ..definitions.ActivationFunction import ActivationFunction
 from .DefaultNeuron import DefaultNeuron
 from .DefaultWeights import DefaultWeights
 from .DefaultLayer import DefaultLayer
@@ -43,13 +43,13 @@ class DefaultNeuralNetwork(NeuralNetwork[DefaultLayer]):
     def get_output_activations(self) -> np.ndarray[float]:
         return self.__layers[-1].get_activations()
     
-    def forward(self, input: np.ndarray[float]) -> np.ndarray[float]:
-        if not input.shape[0] == self.__shape[0]:
+    def forward(self, network_input: np.ndarray[float]) -> np.ndarray[float]:
+        if not network_input.shape[0] == self.__shape[0]:
             raise ValueError(
-                f"Input size ({input.shape[0]}) does not match layer size ({self.__shape[0]})"
+                f"Input size ({network_input.shape[0]}) does not match layer size ({self.__shape[0]})"
             )
         
-        output = input
+        output = network_input
         for layer in self.__layers:
             output = layer.forward(output)
 
@@ -103,7 +103,7 @@ class DefaultNeuralNetwork(NeuralNetwork[DefaultLayer]):
             raise ValueError("Length of activation_functions must be either len(shape) - 1 or len(shape)")
         if not input_has_activation_function:
             # prepend none to the activation functions
-            activation_functions = [None] + activation_functions
+            activation_functions: list[ActivationFunction] = [None] + activation_functions
         layers = []
         for i in range(shape_len):
             # if we are not at the last layer, generate a DefaultWeights instance, otherwise generate a None

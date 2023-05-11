@@ -1,4 +1,4 @@
-from src.core.definitions.Neuron import Neuron
+from ..definitions.Neuron import Neuron
 
 class DefaultNeuron(Neuron):
     # bias need not be used if the bias-trick is used

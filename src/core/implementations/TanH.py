@@ -1,5 +1,5 @@
 import numpy as np
-from src.core.definitions.ActivationFunction import ActivationFunction
+from ..definitions.ActivationFunction import ActivationFunction
 
 class TanH(ActivationFunction):
     @staticmethod

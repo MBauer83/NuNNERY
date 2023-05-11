@@ -1,6 +1,6 @@
 import numpy as np
 from typing import *
-from src.core.definitions.Weights import Weights
+from ..definitions.Weights import Weights
 
 class DefaultWeights(Weights):
     def __init__(self, weights: np.ndarray[float]):

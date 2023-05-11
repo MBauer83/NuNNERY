@@ -1,5 +1,8 @@
+import numpy as np
+
 class DataProvider:
     def __init__(self, data, labels, batch_size=1, shuffle=True):
+        self.index = None
         self.data = data
         self.labels = labels
         self.batch_size = batch_size

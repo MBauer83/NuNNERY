@@ -1,5 +1,5 @@
 import numpy as np
-from src.core.definitions.ActivationFunction import ActivationFunction
+from ..definitions.ActivationFunction import ActivationFunction
 
 class SeLU(ActivationFunction):
     ALPHA = 1.6732632423543772848170429916717
