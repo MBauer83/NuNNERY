@@ -2,7 +2,7 @@
 Every projects needs a punny name - coming up with one *has* to be at least 30% of the development budget. In lieu of an actual budget, I spent about 5 minutes on this name. Yes, it shows... I know. ;)
 
 ## Purpose - Scope - Progress
-NuNNERY is currently a script which implements a fully-connected neural network with mini-batch backpropagation-learning for MNIST-classification from scratch. It is intended for purposes of demonstration and learning. Production-grade performance is not within scope.
+NuNNERY is currently a script which implements a fully-connected neural network with mini-batch backpropagation-learning for MNIST-classification from scratch. It is intended for purposes of demonstration, learning, and experimentation. Production-grade performance is not within scope.
 
 In the next iteration, NuNNERY will become a fully typed, extensible and testable solution in mixed-paradigm programming (object-oriented with functional and imperative programming used within methods). It will demonstrate how to apply principles of Domain-Driven-Design and *SOLID* programming to python 3.  Additionally, it will feature live-presentation of the learning progress using matplotlib's pyplot. TKinter will be used for interactive drawing of the network's input after training and testing.
 
